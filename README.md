@@ -37,10 +37,6 @@ Using the REST API
 ==================
 Examples:
 
-Getting stuff
-
-    GET: http://localhost:8080/sysapi/v1/stuff
-
 Getting stuff for a project:
 
     GET: http://localhost:8080/sysapi/v1/stuff?projectId=1
