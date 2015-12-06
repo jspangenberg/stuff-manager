@@ -7,7 +7,7 @@ has access to stuff data.
 The application uses Spring Boot, which makes it easy to create stand-alone,
 production-grade Spring based Applications that you can "just run".
 
-<DESCRIBE DATA MODEL HERE>
+The physical relational data model consists of two tables. PROJECT has a ONE-TO-MANY relation with STUFF.:
 
 The db script can be found in:
 
