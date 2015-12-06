@@ -41,9 +41,29 @@ Getting stuff for a project:
 
     GET: http://localhost:8080/sysapi/v1/stuff?projectId=1
 
-Creating stuff (not tested yet)
+Create stuff
 
     POST: http://localhost:8080/sysapi/v1/stuff
+    
+    BODY:
+    {
+        "projectId": 1,
+        "title": "A light sabre",
+        "description": "very very dangerous, but handy"
+    }
+    
+Update stuff
+    
+    PUT: http://localhost:8080/sysapi/v1/stuff
+        
+    BODY:
+    {
+        "projectId": 1,
+        "stuffId":1,
+        "title": "A light sabre",
+        "description": "very very dangerous, but handy"
+    }
+
 
 
 TO-DOs (enhancements for upcoming releases)
