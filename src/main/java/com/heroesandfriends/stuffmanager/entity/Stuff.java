@@ -17,15 +17,19 @@ public class Stuff {
     private String title;
     private String description;
 
+    @Column(name = "PROJECT_ID")
+    private Long projectId;
+
     /**
      * The default constructor only exists for the sake of JPA. You won’t use it directly, so it is
      * designated as protected.
      */
     protected Stuff() {}
 
-    public Stuff(String title, String description) {
+    public Stuff(Long projectId, String title, String description) {
         this.title = title;
         this.description = description;
+        this.projectId = projectId;
     }
 
     public long getStuffId() {
@@ -38,6 +42,18 @@ public class Stuff {
 
     public String getDescription() {
         return description;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

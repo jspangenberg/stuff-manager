@@ -4,6 +4,7 @@ import com.heroesandfriends.stuffmanager.dto.StuffDTO;
 import com.heroesandfriends.stuffmanager.entity.Project;
 import com.heroesandfriends.stuffmanager.entity.Stuff;
 import com.heroesandfriends.stuffmanager.repository.ProjectRepository;
+import com.heroesandfriends.stuffmanager.repository.StuffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +21,16 @@ public class StuffService {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    StuffRepository stuffRepostory;
+
     /**
      * Returns stuff for a project.
      * Stuff not paginated.
      * @param projectId
      * @return
      */
-    public List<StuffDTO> getStuf(Long projectId) {
+    public List<StuffDTO> getStuff(Long projectId) {
         List<StuffDTO> stuffDTOs = new ArrayList<StuffDTO>();
         Project project = projectRepository.findOne(projectId);
         convert(stuffDTOs, project);
@@ -40,15 +44,25 @@ public class StuffService {
      * @return
      */
     public List<StuffDTO> create(StuffDTO stuffDTO) {
+
         Project project = projectRepository.findOne(stuffDTO.getProjectId());
 
         if (project != null) {
-            Stuff stuff = new Stuff(stuffDTO.getTitle(), stuffDTO.getDescription());
-            project.getStuff().add(stuff);
-            projectRepository.save(project);
+            Stuff stuff = new Stuff(stuffDTO.getProjectId(), stuffDTO.getTitle(), stuffDTO.getDescription());
+            stuffRepostory.save(stuff);
         }
 
-        return getStuf(project.getProjectId());
+        return getStuff(project.getProjectId());
+
+    }
+
+    public List<StuffDTO> update(StuffDTO stuffDTO) {
+        Stuff stuff = stuffRepostory.findOne(stuffDTO.getStuffId());
+        stuff.setTitle(stuffDTO.getTitle());
+        stuff.setDescription(stuffDTO.getDescription());
+        stuffRepostory.save(stuff);
+
+        return getStuff(stuff.getProjectId());
     }
 
 
@@ -62,6 +76,7 @@ public class StuffService {
                 stuffDTO.setStuffId(stuff.getStuffId());
                 stuffDTO.setTitle(stuff.getTitle());
                 stuffDTO.setDescription(stuff.getDescription());
+                stuffDTO.setProjectId(stuff.getProjectId());
                 stuffDTOs.add(stuffDTO);
             }
         }

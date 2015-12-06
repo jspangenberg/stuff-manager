@@ -25,7 +25,7 @@ public class StuffController {
         List<StuffDTO> stuffDTOs = new ArrayList<StuffDTO>();
 
         if (projectId != null && projectId > 0) {
-            stuffDTOs = stuffService.getStuf(projectId);
+            stuffDTOs = stuffService.getStuff(projectId);
         }
 
         return stuffDTOs;
@@ -39,6 +39,17 @@ public class StuffController {
     @RequestMapping(value="sysapi/v1/stuff", method= RequestMethod.POST)
     public List<StuffDTO> create(@RequestBody StuffDTO stuff) {
         return stuffService.create(stuff);
+    }
+
+
+    /**
+     *
+     * @param stuff
+     * @return
+     */
+    @RequestMapping(value="sysapi/v1/stuff", method= RequestMethod.PUT)
+    public List<StuffDTO> update(@RequestBody StuffDTO stuff) {
+        return stuffService.update(stuff);
     }
 
 }

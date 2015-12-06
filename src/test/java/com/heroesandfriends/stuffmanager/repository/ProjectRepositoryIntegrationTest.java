@@ -30,4 +30,6 @@ public class ProjectRepositoryIntegrationTest extends AbstractIntegrationTest {
         List<Stuff> stuff = project.getStuff();
         assertEquals(1, stuff.size());
     }
+
+
 }
