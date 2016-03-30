@@ -1,6 +1,8 @@
 package com.heroesandfriends.stuffmanager.controller;
 
 import com.heroesandfriends.stuffmanager.dto.StuffDTO;
+import com.heroesandfriends.stuffmanager.exception.ProjectNotFoundException;
+import com.heroesandfriends.stuffmanager.exception.StuffNotFoundException;
 import com.heroesandfriends.stuffmanager.service.StuffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,7 @@ public class StuffController {
      * @return
      */
     @RequestMapping(value="sysapi/v1/stuff", method= RequestMethod.POST)
-    public List<StuffDTO> create(@RequestBody StuffDTO stuff) {
+    public List<StuffDTO> create(@RequestBody StuffDTO stuff) throws ProjectNotFoundException {
         return stuffService.create(stuff);
     }
 
@@ -48,7 +50,7 @@ public class StuffController {
      * @return
      */
     @RequestMapping(value="sysapi/v1/stuff", method= RequestMethod.PUT)
-    public List<StuffDTO> update(@RequestBody StuffDTO stuff) {
+    public List<StuffDTO> update(@RequestBody StuffDTO stuff) throws StuffNotFoundException {
         return stuffService.update(stuff);
     }
 

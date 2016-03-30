@@ -3,7 +3,8 @@ package com.heroesandfriends.stuffmanager.service;
 import com.heroesandfriends.stuffmanager.AbstractIntegrationTest;
 import com.heroesandfriends.stuffmanager.TestConfig;
 import com.heroesandfriends.stuffmanager.dto.StuffDTO;
-import com.heroesandfriends.stuffmanager.entity.Stuff;
+import com.heroesandfriends.stuffmanager.exception.ProjectNotFoundException;
+import com.heroesandfriends.stuffmanager.exception.StuffNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -28,7 +29,7 @@ public class StuffServiceIntegrationTest extends AbstractIntegrationTest {
     }
 
     @org.junit.Test
-    public void createStuff() {
+    public void createStuff() throws ProjectNotFoundException {
         StuffDTO stuffDTO = new StuffDTO();
         stuffDTO.setProjectId(1L);
         stuffDTO.setTitle("Some stuff");
@@ -41,7 +42,7 @@ public class StuffServiceIntegrationTest extends AbstractIntegrationTest {
     }
 
     @org.junit.Test
-    public void updateStuff() {
+    public void updateStuff() throws StuffNotFoundException {
         StuffDTO stuffDTO = new StuffDTO();
         stuffDTO.setTitle("New title");
         stuffDTO.setDescription("New Description");

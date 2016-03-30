@@ -3,6 +3,8 @@ package com.heroesandfriends.stuffmanager.service;
 import com.heroesandfriends.stuffmanager.dto.StuffDTO;
 import com.heroesandfriends.stuffmanager.entity.Project;
 import com.heroesandfriends.stuffmanager.entity.Stuff;
+import com.heroesandfriends.stuffmanager.exception.ProjectNotFoundException;
+import com.heroesandfriends.stuffmanager.exception.StuffNotFoundException;
 import com.heroesandfriends.stuffmanager.repository.ProjectRepository;
 import com.heroesandfriends.stuffmanager.repository.StuffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,24 +45,36 @@ public class StuffService {
      * @param stuffDTO
      * @return
      */
-    public List<StuffDTO> create(StuffDTO stuffDTO) {
+    public List<StuffDTO> create(StuffDTO stuffDTO) throws ProjectNotFoundException{
 
         Project project = projectRepository.findOne(stuffDTO.getProjectId());
 
         if (project != null) {
             Stuff stuff = new Stuff(stuffDTO.getProjectId(), stuffDTO.getTitle(), stuffDTO.getDescription());
             stuffRepostory.save(stuff);
+        } else {
+            throw new ProjectNotFoundException();
         }
 
         return getStuff(project.getProjectId());
 
     }
 
-    public List<StuffDTO> update(StuffDTO stuffDTO) {
+    /**
+     *
+     * @param stuffDTO
+     * @return
+     */
+    public List<StuffDTO> update(StuffDTO stuffDTO) throws StuffNotFoundException {
         Stuff stuff = stuffRepostory.findOne(stuffDTO.getStuffId());
-        stuff.setTitle(stuffDTO.getTitle());
-        stuff.setDescription(stuffDTO.getDescription());
-        stuffRepostory.save(stuff);
+
+        if (stuff != null) {
+            stuff.setTitle(stuffDTO.getTitle());
+            stuff.setDescription(stuffDTO.getDescription());
+            stuffRepostory.save(stuff);
+        } else {
+            throw new StuffNotFoundException();
+        }
 
         return getStuff(stuff.getProjectId());
     }
@@ -81,4 +95,5 @@ public class StuffService {
             }
         }
     }
+
 }
